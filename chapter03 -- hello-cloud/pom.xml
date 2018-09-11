@@ -22,5 +22,6 @@
         
         <module>hello-provider</module>
         <module>hello-consumer</module>
+        <module>PySidecar</module>
     </modules>    
 </project>

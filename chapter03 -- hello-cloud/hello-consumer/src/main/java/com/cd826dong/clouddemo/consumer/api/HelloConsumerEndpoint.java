@@ -15,10 +15,8 @@ package com.cd826dong.clouddemo.consumer.api;
 
 import com.cd826dong.clouddemo.consumer.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 
 /**
@@ -33,6 +31,9 @@ public class HelloConsumerEndpoint {
     @Autowired
     private HelloService helloService;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     /**
      * Hello
      * @return
@@ -40,5 +41,10 @@ public class HelloConsumerEndpoint {
     @RequestMapping(value = "/{name}", method = RequestMethod.GET)
     public String hello(@PathVariable String name){
         return this.helloService.hello(name);
+    }
+
+    @GetMapping(value = "/py")
+    public Object hello(){
+       return restTemplate.getForEntity("http://py-sidecar/hello", String.class).getBody();
     }
 }
